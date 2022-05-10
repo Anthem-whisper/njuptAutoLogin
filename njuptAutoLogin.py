@@ -47,6 +47,7 @@ def login() -> None:
             exit(-1)
 
 def logout() -> None:
+    global currentSelectedUser
     if currentSelectedUser != {}:
         userInfo = currentSelectedUser.copy()
     else:
