@@ -68,22 +68,22 @@ def logout() -> None:
 
     try:
         requests.get(url, headers=headers, params=params, cookies=cookies, verify=False, proxies=proxy)
-        print("[!] Logout Success, current user: {}".format(userInfo["logout"]["params"]["account"]))
+        print("[!] Logout Success, user: {}".format(userInfo["logout"]["params"]["account"]))
         currentSelectedUser = {}
     except Exception as e:
-        print("[!] Logout fail, current user: {}".format(userInfo["logout"]["params"]["account"]))
+        print("[!] Logout fail, user: {}".format(userInfo["logout"]["params"]["account"]))
         if sys.argv[1] != "loop":
             print(str(e))
             exit(-1)
 
 def loop() -> None:
-    urls = ["https://www.baidu.com/","https://www.qq.com/","https://www.sogou.com/"]
+    urls = ["https://www.baidu.com/","https://www.qq.com/   ","https://www.sogou.com/"]
     lastcheck = checkNight()
     while 1:
         if lastcheck != checkNight():
             print("[!] Day-night change detect, now logout.")
             logout()
-            time.sleep(2)
+            time.sleep(5)
         url = random.choice(urls)
         second = random.randint(20, 40)
         # second = random.randint(1,3) # for debug
