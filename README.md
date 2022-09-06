@@ -47,6 +47,7 @@ python3 njuptAutoLogin.py loop http://127.0.0.1:8080
         }
     },
     "netinfo":{
+        "if_check_night": true,
         "serverip":"10.10.244.11",
         "redictip":"6.6.6.6",
         "clientip":"",
