@@ -25,7 +25,7 @@ class NetManager:
         self.http_params    = {}
         self.http_cookie    = {}
 
-    def action(self, action) -> None:
+    def action(self, action:str) -> None:
         try:
             if action == "login" and self.check_login() == False :
                 redict_page = "3.htm"
@@ -94,7 +94,7 @@ class NetManager:
         else:
             return True
 
-    def select_user(self, flag=0) -> None:
+    def select_user(self, flag:int=0) -> None:
         if self.__read_config() == False: exit(-1)
         if flag: # when logout, get user from netinfo or server. if can't, exit
             if "account" in self.config["netinfo"]["selected_user"]:
@@ -134,7 +134,7 @@ class NetManager:
             self.__write_config(1)
             return False
 
-    def __write_config(self, flag=0) -> bool:
+    def __write_config(self, flag:int=0) -> bool:
         try:
             if flag:
                 default_config = {
@@ -156,7 +156,7 @@ class NetManager:
             print("[E] can't write file.")
             print(str(e))
 
-    def __gen_httpinfo(self, action) -> None:
+    def __gen_httpinfo(self, action:str) -> None:
         if action == "login":
             r = requests.get("http://{}/".format(self.config["netinfo"]["redictip"]), allow_redirects=True, proxies=self.proxy)
 
