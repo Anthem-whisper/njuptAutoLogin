@@ -3,8 +3,6 @@
 # @Author  : wh1sper
 # @Time    : 2022/09/01 12:00
 
-from pickle import TRUE
-import turtle
 import requests
 import datetime
 import re
