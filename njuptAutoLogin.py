@@ -94,7 +94,7 @@ class NetManager:
 
     def select_user(self, flag:int=0) -> None:
         if self.__read_config() == False: exit(-1)
-        if flag: # when logout, get user from netinfo or server. if can't, exit
+        if flag: # get user from netinfo or server. if can't, exit
             if "account" in self.config["netinfo"]["selected_user"]:
                 self.selected_user = self.config["netinfo"]["selected_user"]
             elif self.__get_current_user_from_server() == False:
@@ -156,11 +156,11 @@ class NetManager:
 
     def __gen_httpinfo(self, action:str) -> None:
         if action == "login":
-            r = requests.get("http://{}/".format(self.config["netinfo"]["redictip"]), allow_redirects=True, proxies=self.proxy)
-
-            self.config["netinfo"]["clientip"]    = re.search("wlanuserip=.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", r.text).group(1)
-            self.config["netinfo"]["wlanacip"]    = re.search("wlanacip=.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", r.text).group(1)
-            self.config["netinfo"]["wlanacname"]  = re.search("wlanacname=(.*?)\"", r.text).group(1)
+            if self.config["netinfo"]["clientip"] == "" and self.config["netinfo"]["wlanacip"] == "":
+                r = requests.get("http://{}/".format(self.config["netinfo"]["redictip"]), allow_redirects=True, proxies=self.proxy)
+                self.config["netinfo"]["clientip"]    = re.search("wlanuserip=.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", r.text).group(1)
+                self.config["netinfo"]["wlanacip"]    = re.search("wlanacip=.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", r.text).group(1)
+                self.config["netinfo"]["wlanacname"]  = re.search("wlanacname=(.*?)\"", r.text).group(1)
 
             self.http_url    = "http://{}:801/eportal/".format(self.config["netinfo"]["serverip"])
             self.http_header = {
